@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.bugbank'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'org.seleniumhq.selenium:selenium-java:4.10.0'
+    implementation 'com.aventstack:extentreports:5.1.0'
+}
+
+test {
+    useJUnitPlatform()
+}
