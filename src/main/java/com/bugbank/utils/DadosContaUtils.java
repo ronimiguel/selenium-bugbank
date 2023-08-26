@@ -13,26 +13,9 @@ import static com.bugbank.utils.DriverFactory.getDriver;
 
 public class DadosContaUtils {
     private final WebDriver driver = getDriver();
-    private final Logger logger = Logger.getLogger(WebElementActions.class.getName());
 
-    /**
-     * Clica na alternância (toggle) de um botão "Criar Conta com Saldo" se estiver desativada.
-     *
-     * @param elemento O localizador do elemento do botão "Criar Conta com Saldo".
-     */
-    public void clicarAlternanciaSeBotaoCriarContaComSaldoDesativado(By elemento) {
-        try {
-            WebElement clicarAlternanciaSeDesativado = driver.findElement(elemento);
-            WebElement labelElement = clicarAlternanciaSeDesativado.findElement(By.xpath("./ancestor::label"));
-            String classAttribute = labelElement.getAttribute("class");
-
-            if (classAttribute.contains("kIwoPV")) {
-                WebElementActions webElementActions = new WebElementActions();
-                webElementActions.clicarComJS(elemento);
-            }
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Erro ao clicar no toggle button: " + elemento, e);
-        }
+    public String extrairTextoMensagemComDadosDaConta(By elemento) {
+       return driver.findElement(elemento).getAttribute("innerText");
     }
 
     /**
