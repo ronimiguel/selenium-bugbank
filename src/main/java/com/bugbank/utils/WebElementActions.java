@@ -72,4 +72,14 @@ public class WebElementActions {
             logger.log(Level.SEVERE, "Erro ao escrever no elemento: " + elemento.toString(), e);
         }
     }
+
+    /**
+     * Extrai atributo innertext do elemento da web especificado.
+     *
+     * @param elemento O localizador By do elemento de entrada de texto.
+     */
+    public String extrairInnerText(By elemento) {
+        return driver.findElement(elemento).getAttribute("innerText");
+
+    }
 }
