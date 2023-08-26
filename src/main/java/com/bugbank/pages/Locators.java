@@ -10,7 +10,7 @@ public class Locators {
     public static final By REGISTRAR_NOME_INPUT = By.xpath("//input[@name='name']");
     public static final By REGISTRAR_SENHA_INPUT = By.xpath("(//input[@name='password'])[2]");
     public static final By REGISTRAR_CONFIRMAR_SENHA_INPUT = By.xpath("//input[@name='passwordConfirmation']");
-    public static final By REGISTRAR_CRIAR_CONTA_COM_SALDO = By.id("toggleAddBalance");
+    public static final By REGISTRAR_CRIAR_CONTA_COM_SALDO_BTN = By.id("toggleAddBalance");
     public static final By REGISTRAR_CADASTRAR_BTN = By.xpath("//button[contains(text(), 'Cadastrar')]");
     public static final By REGISTRAR_MSG_CADASTRO_TXT = By.xpath("//p[contains(text(), 'criada com sucesso')]");
 
