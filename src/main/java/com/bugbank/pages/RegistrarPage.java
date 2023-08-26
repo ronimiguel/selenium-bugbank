@@ -30,32 +30,27 @@ public class RegistrarPage extends WebElementActions {
         escrever(REGISTRAR_CONFIRMAR_SENHA_INPUT, confirmarSenha);
     }
 
-    public void selecionarCriarContaComSaldo() {
-        dadosContaUtils.clicarAlternanciaSeBotaoCriarContaComSaldoDesativado(REGISTRAR_CRIAR_CONTA_COM_SALDO_BTN);
+    public void selecionarCriarContaComSaldo(boolean contaComSaldo) {
+        clicarAlternanciaBotaoCriarContaComSaldo(REGISTRAR_CRIAR_CONTA_COM_SALDO_BTN, contaComSaldo);
     }
 
     public void clicarBotaoCadastrar() {
         clicar(REGISTRAR_CADASTRAR_BTN);
     }
 
-    public void extrairESalvarDadosConta(Cliente cliente) {
-        String mensagemDadosConta = extrairInnerText(MSG_MODAL_TXT);
-        dadosContaUtils.extrairESalvarContaEDigitoCliente(cliente, mensagemDadosConta);
-    }
-
     public void fecharModal() {
         clicar(FECHAR_BTN);
     }
 
-    public void registrarContaCompleta(Cliente cliente) {
+    public void registrarContaCompleta(Cliente cliente, boolean contaComSaldo) {
         clicarBotaoRegistrar();
         preencherEmail(cliente.getEmail());
         preencherNome(cliente.getNome());
         preencherSenha(cliente.getSenha());
         confirmarSenha(cliente.getConfirmarSenha());
-        selecionarCriarContaComSaldo();
+        selecionarCriarContaComSaldo(contaComSaldo);
         clicarBotaoCadastrar();
-        extrairESalvarDadosConta(cliente);
+        dadosContaUtils.extrairESalvarDadosContaCliente(cliente, REGISTRAR_MSG_CADASTRO_TXT);
         fecharModal();
     }
 }
