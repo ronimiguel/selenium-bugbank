@@ -31,7 +31,7 @@ public class Locators {
     public static final By HOME_MSG_BEM_VINDO_TXT = By.id("textName");
 
     // TransferenciaPage
-    public static final By TRANSFERENCIA_BTN = By.id("btn-TRANSFERÊNCIA");
+    public static final By TRANSFERENCIA_BTN = By.xpath("//p[contains(text(), 'TRANSF')]/../a");
     public static final By TRANSFERENCIA_NUM_CONTA_INPUT = By.xpath("//input[@name='accountNumber']");
     public static final By TRANSFERENCIA_NUM_DIGITO_INPUT = By.xpath("//input[@name='digit']");
     public static final By TRANSFERENCIA_VALOR_INPUT = By.xpath("//input[@name='transferValue']");
