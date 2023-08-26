@@ -7,6 +7,7 @@ public class Cliente {
     private String nome;
     private String senha;
     private String confirmarSenha;
+    private boolean possuiConta;
     private String numeroConta;
     private String numeroDigito;
     private BigDecimal saldoInicial;
@@ -25,6 +26,7 @@ public class Cliente {
         this.nome = nome;
         this.senha = senha;
         this.confirmarSenha = confirmarSenha;
+        this.possuiConta = false; // Inicialmente, o cliente não possui conta
     }
 
     public String getNumeroConta() {
@@ -73,5 +75,13 @@ public class Cliente {
 
     public String getConfirmarSenha() {
         return confirmarSenha;
+    }
+
+    public boolean isPossuiConta() {
+        return possuiConta;
+    }
+
+    public void setPossuiConta(boolean possuiConta) {
+        this.possuiConta = possuiConta;
     }
 }
