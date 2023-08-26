@@ -2,10 +2,8 @@ package com.bugbank.utils;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,13 +47,53 @@ public class DadosContaUtils {
     }
 
     /**
+     * Marca o cliente como possuidor de uma conta existente.
+     *
+     * @param cliente O objeto Cliente a ser marcado como possuidor de conta.
+     */
+    public void marcarContaExistente(Cliente cliente){
+        cliente.setPossuiConta(true);
+    }
+
+    /**
      * Extrai os dados da conta da mensagem e salva-os no objeto Cliente fornecido.
      *
      * @param cliente O objeto Cliente onde os dados da conta serão salvos.
-     * @param mensagemComDados A mensagem que contém os dados da conta no formato "A conta XXX-YY foi criada com sucesso".
+     * @param mensagemTextoComDados A mensagem que contém os dados da conta no formato "A conta XXX-YY foi criada com sucesso".
      */
-    public void extrairESalvarContaEDigitoCliente(Cliente cliente, String mensagemComDados) {
+    public void extrairESalvarDadosContaCliente(Cliente cliente, By mensagemTextoComDados) {
+        String mensagemComDados = extrairTextoMensagemComDadosDaConta(mensagemTextoComDados);
         String[] dadosConta = extrairContaEDigito(mensagemComDados);
         salvarContaEDigitoCliente(cliente, dadosConta);
+        marcarContaExistente(cliente);
     }
+
+    public BigDecimal consultarSaldo() {
+
+        String dadosSaldo = driver.findElement(By.id("textBalance")).getText();
+        int indexOfCifrao = dadosSaldo.indexOf("$");
+
+        // +2 é usado para pular o caractere '$' e o espaço em branco
+        String saldoAtualNumerico = dadosSaldo.substring(indexOfCifrao + 2);
+
+        // Alterar formato brasileiro de moeda para padrao numerico com ponto
+        String saldoAtualComPonto = saldoAtualNumerico.replace(".", ""); // Remove pontos
+        String saldoAtualLimpo = saldoAtualComPonto.replaceAll("[^\\d.,]", ""); // Remove caracteres não numéricos
+
+        // Saldo final em BigDecimal para valores monetarios
+        BigDecimal saldoAtual = new BigDecimal(saldoAtualLimpo.replace(",", ".")); // Converte para BigDecimal
+
+//		System.out.println("Saldo: " + saldoAtual);
+        return saldoAtual;
+
+    }
+    public void atualizarSaldoInicial(Cliente cliente) {
+        cliente.setSaldoInicial(consultarSaldo());
+    }
+
+    public void atualizarSaldoAtual(Cliente cliente) {
+        cliente.setSaldoAtual(consultarSaldo());
+
+    }
+
 }
