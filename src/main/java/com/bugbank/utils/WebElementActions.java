@@ -82,4 +82,44 @@ public class WebElementActions {
         return driver.findElement(elemento).getAttribute("innerText");
 
     }
+
+    /**
+     * Clica na alternância (toggle) de um botão "Criar Conta com Saldo" se estiver desativada.
+     *
+     * @param elemento O localizador do elemento do botão "Criar Conta com Saldo".
+     */
+//    public void clicarAlternanciaSeBotaoCriarContaComSaldoDesativado(By elemento) {
+//        try {
+//            WebElement clicarAlternanciaSeDesativado = driver.findElement(elemento);
+//            WebElement labelElement = clicarAlternanciaSeDesativado.findElement(By.xpath("./ancestor::label"));
+//            String classAttribute = labelElement.getAttribute("class");
+//
+//            if (classAttribute.contains("kIwoPV")) {
+//                WebElementActions webElementActions = new WebElementActions();
+//                webElementActions.clicarComJS(elemento);
+//            }
+//        } catch (Exception e) {
+//            logger.log(Level.SEVERE, "Erro ao clicar no toggle button: " + elemento, e);
+//        }
+//    }
+
+    public void clicarAlternanciaBotaoCriarContaComSaldo(By elemento, boolean criarContaComSaldo) {
+        try {
+            WebElement clicarAlternanciaIsContaComSaldo = driver.findElement(elemento);
+            WebElement labelElement = clicarAlternanciaIsContaComSaldo.findElement(By.xpath("./ancestor::label"));
+            String classAttribute = labelElement.getAttribute("class");
+
+            boolean botaoDesativado = classAttribute.contains("kIwoPV");
+            boolean botaoAtivado = classAttribute.contains("hsmFIT");
+
+            if ((criarContaComSaldo && botaoDesativado) || (!criarContaComSaldo && botaoAtivado)) {
+                WebElementActions webElementActions = new WebElementActions();
+                webElementActions.clicarComJS(elemento);
+            }
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Erro ao clicar no toggle button: " + elemento, e);
+        }
+    }
+
+
 }
