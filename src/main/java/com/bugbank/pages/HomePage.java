@@ -17,6 +17,9 @@ public class HomePage extends WebElementActions {
         clicar(TRANSFERENCIA_BTN);
     }
 
+    public void clicarBotaoExtrato(){
+        clicar(EXTRATO_BTN);
+    }
     public void atualizarSaldoInicialCliente(Cliente cliente){
         dadosContaUtils.atualizarSaldoInicial(cliente);
     }
