@@ -2,6 +2,7 @@ package com.bugbank.utils;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import java.math.BigDecimal;
 import java.util.regex.Matcher;
@@ -93,7 +94,23 @@ public class DadosContaUtils {
 
     public void atualizarSaldoAtual(Cliente cliente) {
         cliente.setSaldoAtual(consultarSaldo());
+    }
+
+    public String consultarDescricaoTransferenciaNoExtrato(String descricao) {
+        WebElement buscaTransf = driver
+                .findElement(By.xpath("//p[contains(text(), '" + descricao + "')]"));
+        return buscaTransf.getAttribute("innerText");
 
     }
+    public String consultarExtrairValorTransferenciaNoExtrato(String descricao) {
+            WebElement valorElement = driver.findElement(By.xpath("//p[contains(text(), '" + descricao + "')]/following-sibling::p"));
+            String text = valorElement.getAttribute("innerText");
+
+            // Remove todos os caracteres exceto dígitos, vírgula e ponto
+            String cleanedText = text.replaceAll("[^\\d,.]", "");
+            cleanedText = cleanedText.replace(",", "."); // Substitui ',' por '.' para formar o valor correto
+
+            return cleanedText.isEmpty() ? null : cleanedText;
+        }
 
 }
