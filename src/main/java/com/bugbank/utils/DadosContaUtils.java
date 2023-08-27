@@ -84,7 +84,6 @@ public class DadosContaUtils {
         // Saldo final em BigDecimal para valores monetarios
         BigDecimal saldoAtual = new BigDecimal(saldoAtualLimpo.replace(",", ".")); // Converte para BigDecimal
 
-//		System.out.println("Saldo: " + saldoAtual);
         return saldoAtual;
 
     }
