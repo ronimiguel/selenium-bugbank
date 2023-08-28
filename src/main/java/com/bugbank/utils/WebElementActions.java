@@ -16,6 +16,7 @@ import static com.bugbank.utils.DriverFactory.getDriver;
 public class WebElementActions {
     private final WebDriver driver = getDriver();
     private final Logger logger = Logger.getLogger(WebElementActions.class.getName());
+    Screenshot screenshot = Screenshot.getInstance();
 
     /**
      * Abre o navegador e navega para a URL especificada.
@@ -36,6 +37,7 @@ public class WebElementActions {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
             WebElement webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(elemento));
+            screenshot.capturarScreenshot();
             webElement.click();
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Erro ao clicar no elemento: " + elemento.toString(), e);
@@ -51,8 +53,10 @@ public class WebElementActions {
         try {
             WebElement elementoParaClicar = driver.findElement(elemento);
             JavascriptExecutor executor = (JavascriptExecutor) driver;
+            screenshot.capturarScreenshot();
             executor.executeScript("arguments[0].click();", elementoParaClicar);
         } catch (Exception e) {
+            screenshot.capturarScreenshot();
             logger.log(Level.SEVERE, "Erro ao clicar no elemento com JavaScript: " + elemento.toString(), e);
         }
     }
@@ -68,6 +72,7 @@ public class WebElementActions {
             WebElement webElement = driver.findElement(elemento);
             webElement.clear();
             webElement.sendKeys(texto);
+            screenshot.capturarScreenshot();
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Erro ao escrever no elemento: " + elemento.toString(), e);
         }
@@ -88,21 +93,6 @@ public class WebElementActions {
      *
      * @param elemento O localizador do elemento do botão "Criar Conta com Saldo".
      */
-//    public void clicarAlternanciaSeBotaoCriarContaComSaldoDesativado(By elemento) {
-//        try {
-//            WebElement clicarAlternanciaSeDesativado = driver.findElement(elemento);
-//            WebElement labelElement = clicarAlternanciaSeDesativado.findElement(By.xpath("./ancestor::label"));
-//            String classAttribute = labelElement.getAttribute("class");
-//
-//            if (classAttribute.contains("kIwoPV")) {
-//                WebElementActions webElementActions = new WebElementActions();
-//                webElementActions.clicarComJS(elemento);
-//            }
-//        } catch (Exception e) {
-//            logger.log(Level.SEVERE, "Erro ao clicar no toggle button: " + elemento, e);
-//        }
-//    }
-
     public void clicarAlternanciaBotaoCriarContaComSaldo(By elemento, boolean criarContaComSaldo) {
         try {
             WebElement clicarAlternanciaIsContaComSaldo = driver.findElement(elemento);
@@ -114,6 +104,7 @@ public class WebElementActions {
 
             if ((criarContaComSaldo && botaoDesativado) || (!criarContaComSaldo && botaoAtivado)) {
                 WebElementActions webElementActions = new WebElementActions();
+                screenshot.capturarScreenshot();
                 webElementActions.clicarComJS(elemento);
             }
         } catch (Exception e) {
