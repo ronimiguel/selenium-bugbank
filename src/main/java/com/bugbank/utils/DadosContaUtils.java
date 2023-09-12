@@ -24,7 +24,7 @@ public class DadosContaUtils {
      * @return Um array de String contendo o número da conta na posição 0 e o dígito na posição 1. Retorna null se não encontrar nenhum padrão.
      */
     public String[] extrairContaEDigito(String mensagem) {
-        Pattern pattern = Pattern.compile("A conta (\\d{2,3})-(\\d+) foi criada com sucesso");
+        Pattern pattern = Pattern.compile("A conta (\\d{1,3})-(\\d+) foi criada com sucesso");
         Matcher matcher = pattern.matcher(mensagem);
 
         if (matcher.find()) {
